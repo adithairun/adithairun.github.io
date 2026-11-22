@@ -172,7 +172,6 @@
     .lang-bar span {
       display: block;
       height: 100%;
-      transition: width 0.4s ease;
     }
 
     .lang-list {
@@ -256,32 +255,32 @@
 
     <section>
       <div class="section-header">
-        <h2>Ringkasan GitHub</h2>
-        <span class="meta-note" id="sync-status">Sinkronisasi...</span>
+        <h2>Statistik GitHub</h2>
+        <span class="meta-note" id="updated-at">2,217 profile views</span>
       </div>
       <div class="stats-grid">
         <div>
-          <div class="stat-value" id="stat-repos">—</div>
-          <div class="stat-label">Repositories</div>
+          <div class="stat-value" id="stat-commits">385</div>
+          <div class="stat-label">Total Commits</div>
         </div>
         <div>
           <div class="stat-value" id="stat-stars">14</div>
-          <div class="stat-label">Total Stars</div>
+          <div class="stat-label">Stars Earned</div>
         </div>
         <div>
-          <div class="stat-value" id="stat-followers">—</div>
-          <div class="stat-label">Followers</div>
+          <div class="stat-value" id="stat-prs">2</div>
+          <div class="stat-label">Total PRs</div>
         </div>
         <div>
-          <div class="stat-value" id="stat-following">—</div>
-          <div class="stat-label">Following</div>
+          <div class="stat-value" id="stat-issues">1</div>
+          <div class="stat-label">Total Issues</div>
         </div>
       </div>
     </section>
 
     <section>
       <div class="section-header">
-        <h2>Distribusi Bahasa</h2>
+        <h2>Bahasa Paling Sering Digunakan</h2>
       </div>
 
       <div class="lang-bar" id="lang-bar" aria-hidden="true">
@@ -328,113 +327,35 @@
   </main>
 
   <script>
-    (function () {
-      const USERNAME = 'adithairun';
-      const CACHE_KEY = 'gh_stats_adithairun_v1';
-      const CACHE_TTL = 60 * 60 * 1000; // 1 jam
-
-      const LANG_COLORS = {
-        JavaScript: '#d4b846',
-        TypeScript: '#4f7cac',
-        CSS: '#6b5b95',
-        PHP: '#556b9c',
-        SCSS: '#b86b8b',
-        HTML: '#c96446',
-        Less: '#3d4d63',
-        Python: '#4b7b59',
-        Go: '#4c969b',
-        Shell: '#6e7f68',
-        Vue: '#4a8b6f'
-      };
-      const FALLBACK_PALETTE = ['#7c7365', '#5c6b73', '#8a6d5c', '#5b7065', '#6e6578', '#8c7a5b'];
-
-      function renderData(data) {
-        document.getElementById('stat-repos').textContent = data.repos;
+    fetch('./stats.json', { cache: 'no-store' })
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        document.getElementById('stat-commits').textContent = data.commits;
         document.getElementById('stat-stars').textContent = data.stars;
-        document.getElementById('stat-followers').textContent = data.followers;
-        document.getElementById('stat-following').textContent = data.following;
-        document.getElementById('sync-status').textContent = 'Live via GitHub API';
+        document.getElementById('stat-prs').textContent = data.prs;
+        document.getElementById('stat-issues').textContent = data.issues;
+
+        if (data.updatedAt) {
+          document.getElementById('updated-at').textContent = `Updated ${data.updatedAt}`;
+        }
 
         if (data.languages && data.languages.length > 0) {
-          const barEl = document.getElementById('lang-bar');
-          const listEl = document.getElementById('lang-list');
-
-          barEl.innerHTML = data.languages
-            .map((item) => `<span style="width: ${item.pct}%; background-color: ${item.color};"></span>`)
+          document.getElementById('lang-bar').innerHTML = data.languages
+            .map((l) => `<span style="width: ${l.pct}%; background-color: ${l.color};"></span>`)
             .join('');
 
-          listEl.innerHTML = data.languages
+          document.getElementById('lang-list').innerHTML = data.languages
             .map(
-              (item) => `
+              (l) => `
               <li>
-                <span class="lang-name"><span class="dot" style="background-color: ${item.color};"></span>${item.name}</span>
-                <span class="lang-pct">${item.pct}%</span>
+                <span class="lang-name"><span class="dot" style="background-color: ${l.color};"></span>${l.name}</span>
+                <span class="lang-pct">${l.pct}%</span>
               </li>`
             )
             .join('');
         }
-      }
-
-      async function loadGitHubStats() {
-        try {
-          const cached = localStorage.getItem(CACHE_KEY);
-          if (cached) {
-            const parsed = JSON.parse(cached);
-            if (Date.now() - parsed.timestamp < CACHE_TTL) {
-              renderData(parsed.payload);
-              return;
-            }
-          }
-
-          const [userRes, reposRes] = await Promise.all([
-            fetch(`https://api.github.com/users/${USERNAME}`),
-            fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&type=owner`)
-          ]);
-
-          if (!userRes.ok || !reposRes.ok) throw new Error('API limit');
-
-          const user = await userRes.json();
-          const repos = await reposRes.json();
-
-          const ownRepos = repos.filter((r) => !r.fork);
-          const totalStars = ownRepos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
-
-          const langCounts = {};
-          let totalCategorized = 0;
-
-          ownRepos.forEach((r) => {
-            if (r.language) {
-              langCounts[r.language] = (langCounts[r.language] || 0) + 1;
-              totalCategorized++;
-            }
-          });
-
-          const languages = Object.entries(langCounts)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 6)
-            .map(([name, count], idx) => ({
-              name,
-              pct: ((count / totalCategorized) * 100).toFixed(2),
-              color: LANG_COLORS[name] || FALLBACK_PALETTE[idx % FALLBACK_PALETTE.length]
-            }));
-
-          const payload = {
-            repos: user.public_repos ?? 0,
-            stars: totalStars,
-            followers: user.followers ?? 0,
-            following: user.following ?? 0,
-            languages
-          };
-
-          localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), payload }));
-          renderData(payload);
-        } catch (err) {
-          document.getElementById('sync-status').textContent = 'Data arsip profil';
-        }
-      }
-
-      loadGitHubStats();
-    })();
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>
