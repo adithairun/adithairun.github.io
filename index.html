@@ -1,133 +1,440 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Happy Birthday!!! :)</title>
-  <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400" rel="stylesheet">
-  <link rel="shortcut icon" type="image/png" href="img/favicon.png" />
-  <link rel="stylesheet" href="style/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aditya Nugraha Hairun</title>
+  <style>
+    :root {
+      --bg: #f9f8f6;
+      --surface: #f2f0ec;
+      --text: #191918;
+      --muted: #66645e;
+      --border: #e5e2dc;
+      --accent: #2c2b29;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121211;
+        --surface: #1a1a18;
+        --text: #ecebe8;
+        --muted: #939088;
+        --border: #282724;
+        --accent: #d6d3cb;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.65;
+      padding: 5rem 1.5rem;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      line-height: 1.25;
+    }
+
+    .handle {
+      display: block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      border-bottom-color: var(--text);
+    }
+
+    .quote-section {
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    blockquote {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: var(--text);
+      padding-left: 1.25rem;
+      border-left: 2px solid var(--accent);
+    }
+
+    blockquote em {
+      color: var(--muted);
+    }
+
+    section {
+      padding: 2.25rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+    }
+
+    .meta-note {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem 1rem;
+    }
+
+    .stat-value {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.5rem;
+      font-variant-numeric: tabular-nums;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .lang-bar {
+      display: flex;
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+      background-color: var(--surface);
+      margin-bottom: 1.5rem;
+      gap: 2px;
+    }
+
+    .lang-bar span {
+      display: block;
+      height: 100%;
+      transition: width 0.4s ease;
+    }
+
+    .lang-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.65rem 2rem;
+    }
+
+    .lang-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .lang-name {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .lang-pct {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    footer {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 3rem 1.25rem;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .lang-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="one">
-      <h1 class="one">
-        <span data-node-name="greeting">Hey</span>
-        <span data-node-name="name">Velly</span>
-      </h1>
-      <p class="two" data-node-name="greetingText">I really like your name btw!</p>
-    </div>
-    <div class="three">
-      <p data-node-name="text1">It's your birthday!!! :D</p>
-    </div>
-    <div class="four">
-      <div class="text-box">
-        <p class="hbd-chatbox" data-node-name="textInChatBox">Happy birthday to you!! Yeee! Many many happy blah...</p>
-        <p class="fake-btn" data-node-name="sendButtonLabel">Send</p>
+  <main>
+    <header>
+      <div>
+        <h1>Aditya Nugraha Hairun</h1>
+        <span class="handle">@adithairun</span>
       </div>
+      <nav aria-label="Tautan Sosial">
+        <a href="https://github.com/adithairun" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twitter.com/AdityaHairun" target="_blank" rel="noopener">Twitter</a>
+        <a href="https://instagram.com/adithairun" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </header>
+
+    <div class="quote-section">
+      <blockquote>
+        Bila kau tak tahan lelahnya belajar, maka kau harus tahan menanggung perihnya kebodohan.
+        <em>Terus belajar sampai maut menjemput.</em>
+      </blockquote>
     </div>
-    <div class="five">
-      <p class="idea-1" data-node-name="text2">That's what I was going to do.</p>
-      <p class="idea-2" data-node-name="text3">But then I stopped.</p>
-      <p class="idea-3">
-        <span data-node-name="text4">I realised, I wanted to do something</span>
-        <strong data-node-name="text4Adjective">special</strong>.</p>
-      <p class="idea-4" data-node-name="text5Entry">Because,</p>
-      <p class="idea-5">
-        <span data-node-name="text5Content">You are Special</span>
-        <span class="smiley" data-node-name="smiley">:)</span>
-      </p>
-      <p class="idea-6">
-        <span data-node-name="bigTextPart1">S</span>
-        <span data-node-name="bigTextPart2">O</span>
-      </p>
-    </div>
-    <div class="six">
-      <img src="img/lydia2.png" alt="" class="lydia-dp" data-node-name="imagePath">
-      <img src="img/hat.svg" alt="" class="hat">
-      <div class="wish">
-        <h3 class="wish-hbd" data-node-name="wishHeading">Happy Birthday!</h3>
-        <h5 data-node-name="wishText">May the js.prototypes always be with you! ;)</h5>
+
+    <section>
+      <div class="section-header">
+        <h2>Ringkasan GitHub</h2>
+        <span class="meta-note" id="sync-status">Sinkronisasi...</span>
       </div>
-    </div>
-    <div class="seven">
-      <div class="baloons">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon2.svg" alt="">
-        <img src="img/ballon1.svg" alt="">
-        <img src="img/ballon3.svg" alt="">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-value" id="stat-repos">—</div>
+          <div class="stat-label">Repositories</div>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-stars">14</div>
+          <div class="stat-label">Total Stars</div>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-followers">—</div>
+          <div class="stat-label">Followers</div>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-following">—</div>
+          <div class="stat-label">Following</div>
+        </div>
       </div>
-    </div>
-    <div class="eight">
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-      <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="20" />
-      </svg>
-    </div>
-    <div class="nine">
-      <p data-node-name="outroText">Okay, now come back and tell me if you liked it.</p>
-      <p id="replay" data-node-name="replayText">Or click, if you want to watch it again.</p>
-      <p class="last-smile" data-node-name="outroSmiley">:)</p>
-    </div>
-  </div>
+    </section>
+
+    <section>
+      <div class="section-header">
+        <h2>Distribusi Bahasa</h2>
+      </div>
+
+      <div class="lang-bar" id="lang-bar" aria-hidden="true">
+        <span style="width: 68.06%; background-color: #d4b846;"></span>
+        <span style="width: 13.52%; background-color: #6b5b95;"></span>
+        <span style="width: 6.89%; background-color: #556b9c;"></span>
+        <span style="width: 5.66%; background-color: #b86b8b;"></span>
+        <span style="width: 4.23%; background-color: #c96446;"></span>
+        <span style="width: 1.65%; background-color: #3d4d63;"></span>
+      </div>
+
+      <ul class="lang-list" id="lang-list">
+        <li>
+          <span class="lang-name"><span class="dot" style="background-color: #d4b846;"></span>JavaScript</span>
+          <span class="lang-pct">68.06%</span>
+        </li>
+        <li>
+          <span class="lang-name"><span class="dot" style="background-color: #6b5b95;"></span>CSS</span>
+          <span class="lang-pct">13.52%</span>
+        </li>
+        <li>
+          <span class="lang-name"><span class="dot" style="background-color: #556b9c;"></span>PHP</span>
+          <span class="lang-pct">6.89%</span>
+        </li>
+        <li>
+          <span class="lang-name"><span class="dot" style="background-color: #b86b8b;"></span>SCSS</span>
+          <span class="lang-pct">5.66%</span>
+        </li>
+        <li>
+          <span class="lang-name"><span class="dot" style="background-color: #c96446;"></span>HTML</span>
+          <span class="lang-pct">4.23%</span>
+        </li>
+        <li>
+          <span class="lang-name"><span class="dot" style="background-color: #3d4d63;"></span>Less</span>
+          <span class="lang-pct">1.65%</span>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <span>Aditya Nugraha Hairun</span>
+      <span>adithairun.github.io</span>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const USERNAME = 'adithairun';
+      const CACHE_KEY = 'gh_stats_adithairun_v1';
+      const CACHE_TTL = 60 * 60 * 1000; // 1 jam
+
+      const LANG_COLORS = {
+        JavaScript: '#d4b846',
+        TypeScript: '#4f7cac',
+        CSS: '#6b5b95',
+        PHP: '#556b9c',
+        SCSS: '#b86b8b',
+        HTML: '#c96446',
+        Less: '#3d4d63',
+        Python: '#4b7b59',
+        Go: '#4c969b',
+        Shell: '#6e7f68',
+        Vue: '#4a8b6f'
+      };
+      const FALLBACK_PALETTE = ['#7c7365', '#5c6b73', '#8a6d5c', '#5b7065', '#6e6578', '#8c7a5b'];
+
+      function renderData(data) {
+        document.getElementById('stat-repos').textContent = data.repos;
+        document.getElementById('stat-stars').textContent = data.stars;
+        document.getElementById('stat-followers').textContent = data.followers;
+        document.getElementById('stat-following').textContent = data.following;
+        document.getElementById('sync-status').textContent = 'Live via GitHub API';
+
+        if (data.languages && data.languages.length > 0) {
+          const barEl = document.getElementById('lang-bar');
+          const listEl = document.getElementById('lang-list');
+
+          barEl.innerHTML = data.languages
+            .map((item) => `<span style="width: ${item.pct}%; background-color: ${item.color};"></span>`)
+            .join('');
+
+          listEl.innerHTML = data.languages
+            .map(
+              (item) => `
+              <li>
+                <span class="lang-name"><span class="dot" style="background-color: ${item.color};"></span>${item.name}</span>
+                <span class="lang-pct">${item.pct}%</span>
+              </li>`
+            )
+            .join('');
+        }
+      }
+
+      async function loadGitHubStats() {
+        try {
+          const cached = localStorage.getItem(CACHE_KEY);
+          if (cached) {
+            const parsed = JSON.parse(cached);
+            if (Date.now() - parsed.timestamp < CACHE_TTL) {
+              renderData(parsed.payload);
+              return;
+            }
+          }
+
+          const [userRes, reposRes] = await Promise.all([
+            fetch(`https://api.github.com/users/${USERNAME}`),
+            fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&type=owner`)
+          ]);
+
+          if (!userRes.ok || !reposRes.ok) throw new Error('API limit');
+
+          const user = await userRes.json();
+          const repos = await reposRes.json();
+
+          const ownRepos = repos.filter((r) => !r.fork);
+          const totalStars = ownRepos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+
+          const langCounts = {};
+          let totalCategorized = 0;
+
+          ownRepos.forEach((r) => {
+            if (r.language) {
+              langCounts[r.language] = (langCounts[r.language] || 0) + 1;
+              totalCategorized++;
+            }
+          });
+
+          const languages = Object.entries(langCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 6)
+            .map(([name, count], idx) => ({
+              name,
+              pct: ((count / totalCategorized) * 100).toFixed(2),
+              color: LANG_COLORS[name] || FALLBACK_PALETTE[idx % FALLBACK_PALETTE.length]
+            }));
+
+          const payload = {
+            repos: user.public_repos ?? 0,
+            stars: totalStars,
+            followers: user.followers ?? 0,
+            following: user.following ?? 0,
+            languages
+          };
+
+          localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), payload }));
+          renderData(payload);
+        } catch (err) {
+          document.getElementById('sync-status').textContent = 'Data arsip profil';
+        }
+      }
+
+      loadGitHubStats();
+    })();
+  </script>
 </body>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
-<script type="application/javascript" src="script/main.js"></script>
-
 </html>
