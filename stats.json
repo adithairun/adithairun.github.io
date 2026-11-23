@@ -1,0 +1,39 @@
+{
+  "updatedAt": "2026-11-23",
+  "commits": 373,
+  "stars": 11,
+  "prs": 2,
+  "issues": 1,
+  "languages": [
+    {
+      "name": "JavaScript",
+      "color": "#f1e05a",
+      "pct": "68.05"
+    },
+    {
+      "name": "CSS",
+      "color": "#663399",
+      "pct": "13.50"
+    },
+    {
+      "name": "PHP",
+      "color": "#4F5D95",
+      "pct": "6.89"
+    },
+    {
+      "name": "SCSS",
+      "color": "#c6538c",
+      "pct": "5.66"
+    },
+    {
+      "name": "HTML",
+      "color": "#e34c26",
+      "pct": "4.25"
+    },
+    {
+      "name": "Less",
+      "color": "#1d365d",
+      "pct": "1.65"
+    }
+  ]
+}
